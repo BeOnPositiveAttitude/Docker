@@ -27,3 +27,7 @@ docker exec container_name cat /etc/hosts
 # по умолчанию контейнер запускается в attached-mode, т.е. консоль занимается output-ом контейнера
 docker run -d kodekloud/simple-webapp   #запустить контейнер в detached-mode, чтобы контейнер бежал в background и консоль была свободна
 docker attach container_id   #вернуться обратно в attached-mode контейнера
+
+docker run centos   #скачает образ из официального docker registry
+docker run frenzy88/myimage   #если нужно скачать с репозитория пользователя
+docker run -it centos bash   #i=interactive - keep STDIN open even if not attached, t=tty - allocate a pseudo-TTY
