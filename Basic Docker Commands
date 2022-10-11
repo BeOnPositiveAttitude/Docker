@@ -1,8 +1,10 @@
 docker run nginx   #скачает image из Docker Hub и запустит контейнер
 docker ps   #смотреть список запущенных контейнеров
 docker ps -a   #смотреть список всех контейнеров, в том числе остановленных
+docker ps -qa   #вывести только id-шники контейнеров
 docker stop container_name   #остановить контейнер
 docker rm container_name   #удалить контейнер
+docker rm $(docker ps -qa)   #удалить все контейнеры
 
 docker images   #смотреть список образов
 docker rmi nginx   #удалить образ, перед удалением важно убедиться что нет запущенных с этого образа контейнеров
