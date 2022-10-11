@@ -30,3 +30,5 @@
 
 # docker image - образ (аналог template ВМ), из которого создаются контейнеры
 # docker container - запущенный изолированный экземпляр образа со своими собственными процессами
+
+# существует две редакции Docker - Community Edition и Enterprise Edition
