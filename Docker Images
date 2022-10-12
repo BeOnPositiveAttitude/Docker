@@ -1,0 +1,25 @@
+# пример Dockerfile:
+#####
+FROM Ubuntu   #базовый образ ОС контейнера, layer 1
+
+RUN apt-get update   #запуск команды внутри ОС, layer 2
+RUN apt-get install python
+
+RUN pip install flask   #layer 3
+RUN pip install flask-mysql
+
+COPY . /opt/source-code   #скопировать файлы из текущей директории в папку контейнера /opt/source-code, layer 4 
+
+ENTRYPOINT FLASK_APP=/opt/source-code/app.py flask run  #какая команда будет выполнена при запуске контейнера, layer 5
+#####
+# контейнер представляет собой многослойный "пирог"
+
+docker build Dockerfile -t frenzy88/my-custom-app   #создание image из Dockerfile
+docker push frenzy88/my-custom-app   #пушим созданный image в Docker Hub
+
+# структура Dockerfile:
+INSTRUCTION argument
+
+docker history frenzy88/simple-webapp   #смотреть историю создания слоев образа
+
+# если один из слоев создания образа зафейлился, либо был добавлен новый слой Docker не начинает сборку с нуля, а продолжает с того места, где остановился
