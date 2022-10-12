@@ -1,0 +1,10 @@
+docker run redis:4.0   #запуск контейнера с redis определенной версии, 4.0 - это так называемый tag
+# без указания tag по умолчанию будет latest
+# пример, если у нас есть некое приложение-скрипт, которое при запуске выдает "Welcome! Please enter your name:" 
+# и выводит на экран "Hello and Welcome Aidar!"
+# по умолчанию docker контейнер не слушает standard input, соответственно наше приложение в контейнере не спросит имя юзера и просто выведет:
+# "Hello and Welcome!"
+docker run -i kodekloud/simple-prompt-docker   #i=interactive-mode, позволит нам ввести имя пользователя и получить желаемый вывод, 
+# но не покажет prompt скрипта "Welcome! Please enter your name:", т.к. приложение выводит в терминал, который не приаттачен к терминалу контейнера
+docker run -it kodekloud/simple-prompt-docker   #t=pseudo-terminal, позволяет нам решить эту проблему
+
