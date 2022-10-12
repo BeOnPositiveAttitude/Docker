@@ -14,7 +14,7 @@ ENTRYPOINT FLASK_APP=/opt/source-code/app.py flask run  #какая команд
 #####
 # контейнер представляет собой многослойный "пирог"
 
-docker build Dockerfile -t frenzy88/my-custom-app   #создание image из Dockerfile
+docker build Dockerfile -t frenzy88/my-custom-app   #t=tag, создание image из Dockerfile
 docker build .
 docker push frenzy88/my-custom-app   #пушим созданный image в Docker Hub
 
