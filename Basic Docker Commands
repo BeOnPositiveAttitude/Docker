@@ -23,6 +23,7 @@ docker run ubuntu sleep 100
 
 # если нужно запустить команду внутри контейнера мы можем использовать exec:
 docker exec container_name cat /etc/hosts
+docker exec container_id cat /etc/*release*
 
 # по умолчанию контейнер запускается в attached-mode, т.е. консоль занимается output-ом контейнера
 docker run -d kodekloud/simple-webapp   #запустить контейнер в detached-mode, чтобы контейнер бежал в background и консоль была свободна
