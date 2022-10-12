@@ -19,5 +19,5 @@ docker run -p 8000:5000 kodekloud/webapp   #можно запустить нес
 # но мы можем сохранить данные с помощью маппинга:
 docker run -v /opt/datadir:/var/lib/mysql mysql   #сначала указываем папку на docker-хосте, затем папку в контейнере
 
-docker inspect container_name   #смотреть подробную инфу о контейнере
+docker inspect container_name   #смотреть подробную инфу о контейнере, в том числе ip-адрес контейнера
 docker logs container_name   #смотреть логи контейнера, если мы изначально запустили его в detached-mode
