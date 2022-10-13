@@ -1,1 +1,25 @@
+# если нам нужно запустить сразу несколько контейнеров, из которых строится наш итоговый сервис, на помощь приходит Docker Compose
+# вместо множества команд:
 
+docker run frenzy88/simple-webapp
+docker run mongodb
+docker run redis:alpine
+docker run ansible
+
+# мы можем написать docker-compose.yml:
+
+services:
+     web:
+        image: "frenzy88/simple-webapp"
+     database:
+        image: "mongodb"
+     messaging:
+        image: "redis:alpine"
+     orchestration:
+        image: "ansible"
+ 
+ docker compose up   #поднять контейнеры из yml-файла
+ # контейнеры поднимаются на одном docker-хосте
+ 
+ # link - опция командной строки для связи двух контейнеров друг с другом
+ 
