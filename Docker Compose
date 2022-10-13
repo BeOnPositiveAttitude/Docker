@@ -31,3 +31,27 @@ docker run -d --name=worker --link db:db --link redis:redis worker
 
 # при создании линка фактически в файле /etc/hosts контейнера vote создается запись:
 172.17.0.2 redis 89cd8eb563da
+
+# если перевести записи выше в Docker Compose:
+
+redis:
+  image: redis
+db:
+  image: postgres:9.4
+vote:
+  image: voting-app
+  ports:
+    - 5000:80
+  links:
+    - redis
+result:
+  image: result-app
+  ports:
+    - 5001:80
+  links:
+    - db
+worker:
+  image: worker
+  links:
+    - redis
+    - db
