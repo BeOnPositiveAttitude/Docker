@@ -17,6 +17,7 @@ ENTRYPOINT FLASK_APP=/opt/source-code/app.py flask run  #какая команд
 docker build Dockerfile -t frenzy88/my-custom-app   #t=tag, создание image из Dockerfile
 docker build .
 docker push frenzy88/my-custom-app   #пушим созданный image в Docker Hub
+docker login   #залогиниться в аккаунт Docker
 
 # структура Dockerfile:
 INSTRUCTION argument
