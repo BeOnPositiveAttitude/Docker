@@ -49,9 +49,55 @@ result:
   ports:
     - 5001:80
   links:
-    - db
+    - db   #здесь db=db:db
 worker:
   image: worker
   links:
     - redis
     - db
+
+# в случае если нам нужно сначала собрать свои образы мы можем вместо опции image указать опцию build:
+
+redis:
+  image: redis
+db:
+  image: postgres:9.4
+vote:
+  build: ./vote   #папка с кодом приложения и Dockerfile-ом
+  ports:
+    - 5000:80
+  links:
+    - redis
+result:
+  build: ./result
+  ports:
+    - 5001:80
+  links:
+    - db
+worker:
+  build: ./worker
+  links:
+    - redis
+    - db
+    
+# существуют различные версии Docker Compose файлов со своими особенностями и ограничениями
+# так например в version: 1 нельзя было указать другую сеть для контейнера кроме как дефолтную bridged или определить порядок старта контейнеров
+# в version: 1 для сети использовались link-и для связи контейнеров в рамках дефолтной bridged-сети
+# в version: 2 появилось слово services в начале файла
+# при использовании version: 2 и выше необходимо указывать версию в самом начале файла, перед словом services
+
+version: 2
+services:
+     web:
+        image: "frenzy88/simple-webapp"
+     database:
+        image: "mongodb"
+     messaging:
+        image: "redis:alpine"
+     orchestration:
+        image: "ansible"
+        
+# в version: 2 для каждого приложения создается своя выделенная bridged-сеть и все контейнеры приложения маппятся к ней
+# затем контейнеры взаимодействуют друг с другом на основе service name друг друга
+# таким образом в version: 2 нет необходимости использовать link-и
+
