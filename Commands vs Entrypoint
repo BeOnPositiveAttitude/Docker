@@ -17,3 +17,13 @@ CMD sleep 5   #либо команда в формате JSON - CMD ["sleep", "5
 FROM ubuntu
 ENTRYPOINT ["sleep"]
 # инструкция ENTRYPOINT очень похожа на CMD, но при запуске контейнера docker run ubuntu-sleeper 10, значение 10 будет добавлено к команде sleep
+# если мы запустим контейнер docker run ubuntu-sleeper без указания параметра, то получим ошибку sleep: missing operand
+# чтобы задать некое дефолтное значение для sleep, мы можем объединить ENTRYPOINT и CMD:
+FROM ubuntu
+ENTRYPOINT ["sleep"]
+CMD ["5"]
+# то есть при запуске контейнера без параметров, он запустится с командой sleep 5, если мы укажем docker run ubuntu-sleeper 10, 
+# то новое значение переопределит значение из CMD
+# важно! при комбинации ENTRYPOINT и CMD, необходимо использовать JSON-формат
+
+docker run --entrypoint sleep2.0 ubuntu-sleeper 10   #если нам нужно переопределить дефолтную команду из инструкции ENTRYPOINT 
