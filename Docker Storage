@@ -1,1 +1,21 @@
 # при установке Docker создает структуру папок в /var/lib/docker, в которой хранятся файлы контейнеров, образов, вольюмов и т.д.
+# каждая строка в Dockerfile - это новый слой в image
+# рассмотрим два докер-файла:
+
+FROM ubuntu
+RUN apt-get update && apt-get -y install python
+RUN pip install flask flask-mysql
+COPY . /opt/source-code
+ENTRYPOINT FLASK_APP=/opt/source-code/app.py flask run
+
+docker build Dockerfile -t frenzy88/my-custom-app
+
+##########
+
+FROM ubuntu
+RUN apt-get update && apt-get -y install python
+RUN pip install flask flask-mysql
+COPY app2.py /opt/source-code
+ENTRYPOINT FLASK_APP=/opt/source-code/app2.py flask run
+
+docker build Dockerfile2 -t frenzy88/my-custom-app-2
