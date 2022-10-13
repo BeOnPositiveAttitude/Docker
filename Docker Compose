@@ -18,10 +18,12 @@ services:
      orchestration:
         image: "ansible"
  
- docker compose up   #поднять контейнеры из yml-файла
- # контейнеры поднимаются на одном docker-хосте
+docker compose up   #поднять контейнеры из yml-файла, с опцией -d контейнеры поднимутся в background-е 
+docker-compose up   #в более старых версиях
+
+# контейнеры поднимаются на одном docker-хосте
  
- # link - опция командной строки для связи двух контейнеров друг с другом
+# link - опция командной строки для связи двух контейнеров друг с другом
  
 docker run -d --name=redis redis
 docker run -d --name=db postgres
