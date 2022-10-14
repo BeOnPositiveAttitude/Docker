@@ -11,4 +11,9 @@
 # в отличии от Docker на Linux в Docker на Windows существуют два типа контейнеров:
 # Windows Server контейнеры, которые работают также как и контейнеры на ОС Linux - используют одно общее ядро ОС
 # для большей безопасности между контейнерами и возможности запуска ядер с разными версиями и конфигурациями была добавлена вторая опция:
-# Hyper-V Isolateion
+# Hyper-V Isolation, при этом способе контейнеры запускаются внутри отдельных оптимизированных ВМ для гарантированной изоляции ядер между контейнерами и хостом
+# для Windows мы можем указать в Dockerfile два варианта - Windows Server Core или Nano Server
+# Nano Server - это грубо говоря только кусок от полноценной ОС
+# Windows-контейнеры поддерживаются на Windows Server 2016 и выше, Windows 10 Professional и Enterprise Edition
+# на Windows 10 Professional и Enterprise Edition поддерживается только режим Hyper-V Isolation
+# нельзя установить на одну и ту же машину и Oracle VirtualBox и Microsoft Hyper-V
