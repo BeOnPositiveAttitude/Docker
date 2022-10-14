@@ -51,4 +51,12 @@ docker run -v /data/mysql:/var/lib/mysql mysql
 
 # монтирование volume через опцию -v считается устаревшим
 # более современный подход использует опцию --mount:
-docker run --mount type=bind,source=/data/mysql,target=/var/lib/mysql mysql
+docker run --mount type=bind,source=/data/mysql,target=/var/lib/mysql mysql   #source - папка на докер-хосте, target - папка в контейнере
+
+# Docker использует storage drivers для многослойной архитектуры:
+# AUFS, ZFS, BTRFS, Device Mapper, Overlay, Overlay 2
+# выбор конкретного драйвера зависит от ОС докер-хоста, например для Ubuntu это AUFS, который недоступен например на CentOS
+# Docker автоматически выбирает наиболее подходящий для ОС драйвер
+# разные storage drivers выдают разную производительность и стабильность работы, так что мы можем выбрать подходящий под наши нужды
+
+
