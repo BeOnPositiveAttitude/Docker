@@ -17,6 +17,7 @@ docker run ubuntu --network=host
 # мы можем создать новую сеть:
 docker network create --driver bridge --subnet 182.18.0.0/16 custom-isolated-network
 docker network ls   #смотреть список сетей
+docker network inspect bridge   #смотреть детальную информацию о сети
 
 # узнать ip-адрес контейнера можно командой docker inspect container_name
 
