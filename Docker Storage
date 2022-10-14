@@ -38,3 +38,7 @@ docker build Dockerfile2 -t frenzy88/my-custom-app-2
 # этот механизм называется copy-on-write
 
 # если же мы хотим сохранить данные из Container Layer даже после остановки контейнера, необходимо добавить persistent volume
+docker volume create data_volume   #создаст папку data_volume в /var/lib/docker/volumes/
+# затем мы можем примонтировать созданный volume к Container Layer при запуске контейнера:
+docker run -v data_volume:/var/lib/mysql mysql
+# если запустить команду docker run -v data_volume2:/var/lib/mysql mysql без предварительного создания volume, то Docker создаст его автоматически
