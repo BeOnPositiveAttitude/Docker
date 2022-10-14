@@ -1,0 +1,14 @@
+# существует два способа использовать Docker на Windows: Docker Toolbox и Docker Desktop
+# Docker Toolbox состоит из Oracle VirtualBox, Docker Engine, Docker Machine, Docker Compose и Katematic (user interface)
+# Docker Toolbox - это legacy решение для всех Windows-систем не подходящих по требованиям для Docker Desktop
+# Docker Toolbox - ОС Windows => Oracle VirtualBox => ОС Linux => Docker
+# Docker Desktop использует native виртуализацию Microsoft Hyper-V
+# Docker Desktop - ОС Windows => Microsoft Hyper-V => ОС Linux => Docker
+# все эти способы использования Docker на Windows позволяют нам запускать только linux-контейнеры!!! не windows
+# по умолчанию Docker на Windows настроен на использование linux-контейнеров
+# но есть возможность переключить его на использование windows-контейнеров
+
+# в отличии от Docker на Linux в Docker на Windows существуют два типа контейнеров:
+# Windows Server контейнеры, которые работают также как и контейнеры на ОС Linux - используют одно общее ядро ОС
+# для большей безопасности между контейнерами и возможности запуска ядер с разными версиями и конфигурациями была добавлена вторая опция:
+# Hyper-V Isolateion
