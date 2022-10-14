@@ -7,7 +7,7 @@ docker stop container_name   #остановить контейнер
 docker rm container_name   #удалить контейнер
 docker rm $(docker ps -qa)   #удалить все контейнеры, q=quiet - only display container IDs
 docker rmi $(docker images -q)   #удалить все образы
-docker image prune -a   #удалить образы
+docker image prune -a   #удалить неиспользуемые никакими контейнерами образы
 
 docker images   #смотреть список образов
 docker rmi nginx   #удалить образ, перед удалением важно убедиться что нет запущенных с этого образа контейнеров
