@@ -16,6 +16,7 @@ docker run --network=host ubuntu
 # по умолчанию Docker создает только одну bridged-сеть
 # мы можем создать новую сеть:
 docker network create --driver bridge --subnet 182.18.0.0/16 custom-isolated-network
+docker network create --driver=bridge --subnet=182.18.0.1/24 --gateway=182.18.0.1 wp-mysql-network
 docker network ls   #смотреть список сетей
 docker network inspect bridge   #смотреть детальную информацию о сети
 
