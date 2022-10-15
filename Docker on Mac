@@ -1,0 +1,6 @@
+# для macOS Docker существует также в двух вариациях - Docker Toolbox и Docker Desktop for Mac
+# Docker Toolbox состоит из Oracle VirtualBox, Docker Engine, Docker Machine, Docker Compose и Kitematic (GUI)
+# Docker Toolbox - macOS => Oracle VirtualBox => VM с ОС Linux => Docker
+# Docker Desktop for Mac использует виртуализацию HyperKit
+# Docker Desktop for Mac - macOS => HyperKit => VM с ОС Linux => Docker
+# все эти способы использования Docker на macOS позволяют нам запускать только linux-контейнеры!!!
