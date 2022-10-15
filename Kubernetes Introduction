@@ -1,0 +1,5 @@
+kubectl run --replicas=1000 my-web-server   #с помощью одной команды k8s мы можем запустить сразу тысячи контейнеров
+kubectl scale --replicas=2000 my-web-server   #с помощью одной команды k8s мы можем увеличить число контейнеров до 2000
+# k8s может автоматически увеличивать или уменьшать число запущенных контейнеров в зависимости от нагрузки
+kubectl rolling-update my-web-server --image=web-server:2   #k8s может автоматически обновить наше приложение
+kubectl rolling-update my-web-server --rollback   #и может откатить изменения обратно
