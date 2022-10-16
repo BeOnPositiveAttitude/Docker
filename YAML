@@ -46,3 +46,41 @@ Model:
 Transmission: Manual
 Price: $20,000
   
+# для хранения списка цветов машин можно использовать массив:
+- Blue Corvette
+- Gray Corvette
+- Red Corvette
+- Green Corvette
+
+# если нужно дополнить каждую машину свойствами, то используем list of dictionaries:
+
+- Color: Blue
+  Model: 
+    Name: Corvette
+    Year: 1995
+  Transmission: Manual
+  Price: $20,000
+
+- Color: Gray
+  Model: 
+    Name: Corvette
+    Year: 1995
+  Transmission: Manual
+  Price: $22,000
+
+- Color: Red
+  Model: 
+    Name: Corvette
+    Year: 1995
+  Transmission: Automatic
+  Price: $20,000
+
+- Color: Green
+  Model: 
+    Name: Corvette
+    Year: 1995
+  Transmission: Manual
+  Price: $23,000
+  
+# Dictionary - Unordered
+# List - Ordered
