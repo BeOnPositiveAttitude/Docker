@@ -1,0 +1,48 @@
+# Array/List example:
+
+Fruits:
+- Orange
+- Apple
+- Banana
+
+Vegetables:
+- Carrot
+- Cauliflower
+- Tomato
+
+# Dictionary/Map example:
+
+Banana:
+  Calories: 105
+  Fat: 0.4 g
+  Carbs: 27 g
+  
+Grapes:
+  Calories: 62
+  Fat: 0.3 g
+  Carbs: 16 g
+  
+# Key-Value/Dictionary/List exmaple:
+
+Fruits:
+  - Banana:
+      Calories: 105
+      Fat: 0.4 g
+      Carbs: 27 g
+  
+  - Grapes:
+      Calories: 62
+      Fat: 0.3 g
+      Carbs: 16 g
+      
+# когда использовать массив, а когда словарь?
+# для хранения свойств одного объекта нужно использовать словарь
+# Dictionary in Dictionary example:
+
+Color: Blue
+Model: 
+  Name: Corvette
+  Year: 1995
+Transmission: Manual
+Price: $20,000
+  
