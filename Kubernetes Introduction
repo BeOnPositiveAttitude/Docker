@@ -3,3 +3,13 @@ kubectl scale --replicas=2000 my-web-server   #с помощью одной ко
 # k8s может автоматически увеличивать или уменьшать число запущенных контейнеров в зависимости от нагрузки
 kubectl rolling-update my-web-server --image=web-server:2   #k8s может автоматически обновить наше приложение
 kubectl rolling-update my-web-server --rollback   #и может откатить изменения обратно
+# k8s позволяет нам обновлять только часть запущенных контейнеров для тестирования новой версии нашего приложения - AB testing method
+# k8s использует Docker-хосты в своей архитектуре
+# кластер k8s состоит из master и worker нод, на мастере установлен control plane
+# API Server - это front-end для пользователей, CLI-команд для взаимодействия с кластером
+# etcd - key-value хранилище, содержит инфу о воркерах и мастерах
+# scheduler - мониторит новые контейнеры и назначает их на ноды
+
+kubectl run hello-minikube
+kubectl cluster-info
+kubectl get nodes
