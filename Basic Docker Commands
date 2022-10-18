@@ -8,6 +8,7 @@ docker rm container_name   #удалить контейнер
 docker rm $(docker ps -qa)   #удалить все контейнеры, q=quiet - only display container IDs
 docker rmi $(docker images -q)   #удалить все образы
 docker image prune -a   #удалить неиспользуемые никакими контейнерами образы
+docker system prune   #удалить все неиспользуемые контейнеры, образы, сети и кэш
 
 docker images   #смотреть список образов
 docker rmi nginx   #удалить образ, перед удалением важно убедиться что нет запущенных с этого образа контейнеров
@@ -27,6 +28,7 @@ docker run ubuntu sleep 100
 # если нужно запустить команду внутри контейнера мы можем использовать exec:
 docker exec container_name cat /etc/hosts
 docker exec container_id cat /etc/*release*
+docker exec -it container_id bash   #подключиться к терминалу бегущего контейнера
 
 # по умолчанию контейнер запускается в attached-mode, т.е. консоль занимается output-ом контейнера
 docker run -d kodekloud/simple-webapp   #запустить контейнер в detached-mode, чтобы контейнер бежал в background и консоль была свободна
@@ -35,3 +37,4 @@ docker attach container_id   #вернуться обратно в attached-mode
 docker run centos   #скачает образ из официального docker registry
 docker run frenzy88/myimage   #если нужно скачать с репозитория пользователя
 docker run -it centos bash   #i=interactive - keep STDIN open even if not attached, t=tty - allocate a pseudo-TTY
+docker run --rm nginx   #удалит контейнер сразу после его остановки, не нужно отдельно вводить docker rm container_id
