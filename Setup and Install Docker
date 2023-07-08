@@ -5,3 +5,6 @@ sudo systemctl start docker
 sudo systemctl enable docker.service
 sudo systemctl enable containerd.service
 sudo usermod -aG docker $USER   #добавить текущего юзера в группу docker для запуска команд docker без sudo
+
+### Установка docker-compose с GitHub
+curl -L https://github.com/docker/compose/releases/download/v2.19.1/docker-compose-linux-x86_64 -o /usr/local/bin/docker-compose
