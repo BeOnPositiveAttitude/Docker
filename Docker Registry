@@ -20,3 +20,6 @@ docker image tag nginx:latest localhost:5000/nginx:latest
 docker push localhost:5000/my-image
 docker push localhost:5000/nginx:latest
 docker pull localhost:5000/my-image
+
+# затем мы можем указать использование образа из локального registry например в Deployment
+image: localhost:5000/my-image
