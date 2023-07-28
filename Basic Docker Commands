@@ -38,3 +38,5 @@ docker run centos   #скачает образ из официального doc
 docker run frenzy88/myimage   #если нужно скачать с репозитория пользователя
 docker run -it centos bash   #i=interactive - keep STDIN open even if not attached, t=tty - allocate a pseudo-TTY
 docker run --rm nginx   #удалит контейнер сразу после его остановки, не нужно отдельно вводить docker rm container_id
+
+docker cp /tmp/nautilus.txt.gpg container_id:/tmp/   #скопировать файл с docker-хоста в контейнер
