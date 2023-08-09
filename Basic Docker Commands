@@ -40,3 +40,5 @@ docker run -it centos bash   #i=interactive - keep STDIN open even if not attach
 docker run --rm nginx   #удалит контейнер сразу после его остановки, не нужно отдельно вводить docker rm container_id
 
 docker cp /tmp/nautilus.txt.gpg container_id:/tmp/   #скопировать файл с docker-хоста в контейнер
+
+docker commit ubuntu_latest media:devops   #создать образ с названием media:devops из запущенного контейнера ubuntu_latest
