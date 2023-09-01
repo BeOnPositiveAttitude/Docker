@@ -15,3 +15,13 @@ CMD [ "/usr/sbin/apache2ctl", "-D", "FOREGROUND", "-k", "start" ]
 CMD [ "/usr/sbin/apache2ctl", "-D", "FOREGROUND" ]
 # важно не использовать одинарные ковычки!!! с ними не сработает запуск apache2
 ```
+
+```bash
+FROM node:alpine
+WORKDIR /node_app
+COPY package.json server.js ./
+# установка зависимостей из файла package.json
+RUN npm install
+EXPOSE 8083
+CMD [ "node", "server.js" ]
+```
