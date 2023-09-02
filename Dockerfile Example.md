@@ -25,3 +25,14 @@ RUN npm install
 EXPOSE 8083
 CMD [ "node", "server.js" ]
 ```
+
+```bash
+FROM python:alpine
+WORKDIR /python_app
+# Dockerfile лежит внутри каталога с таким же названием /python_app на docker-хосте, а файлы requirements.txt и server.py внутри каталога /python_app/src
+# копируем их в образ в каталог /python_app
+COPY ./src/* ./
+RUN pip3 install -r requirements.txt
+EXPOSE 8085
+CMD [ "python3", "server.py" ]
+```
