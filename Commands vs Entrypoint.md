@@ -42,12 +42,18 @@ ENTRYPOINT ["sleep"]
 
 Если мы запустим контейнер `docker run ubuntu-sleeper` без указания параметра, то получим ошибку `sleep: missing operand`.
 
-# чтобы задать некое дефолтное значение для sleep, мы можем объединить ENTRYPOINT и CMD:
+Чтобы задать некое дефолтное значение для `sleep`, мы можем объединить `ENTRYPOINT` и `CMD`:
+
+```bash
 FROM ubuntu
 ENTRYPOINT ["sleep"]
 CMD ["5"]
-# то есть при запуске контейнера без параметров, он запустится с командой sleep 5, если мы укажем docker run ubuntu-sleeper 10, 
-# то новое значение переопределит значение из CMD
-# важно! при комбинации ENTRYPOINT и CMD, необходимо использовать JSON-формат
+```
 
-docker run --entrypoint sleep2.0 ubuntu-sleeper 10   #если нам нужно переопределить дефолтную команду из инструкции ENTRYPOINT 
+То есть при запуске контейнера без параметров, он запустится с командой `sleep 5`, если мы укажем `docker run ubuntu-sleeper 10`, то новое значение переопределит значение из `CMD`.
+
+Важно! при комбинации `ENTRYPOINT` и `CMD`, необходимо использовать JSON-формат.
+
+Если нам нужно переопределить дефолтную команду из инструкции `ENTRYPOINT`:
+
+`docker run --entrypoint sleep2.0 ubuntu-sleeper 10`   
