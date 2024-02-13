@@ -54,14 +54,18 @@ Transmission: Manual
 Price: $20,000
 ```
   
-# для хранения списка цветов машин можно использовать массив:
+Для хранения списка цветов машин можно использовать массив:
+
+```yaml
 - Blue Corvette
 - Gray Corvette
 - Red Corvette
 - Green Corvette
+```
 
-# если нужно дополнить каждую машину свойствами, то используем list of dictionaries:
+Если нужно дополнить каждую машину свойствами, то используем list of dictionaries:
 
+```yaml
 - Color: Blue
   Model: 
     Name: Corvette
@@ -89,11 +93,13 @@ Price: $20,000
     Year: 1995
   Transmission: Manual
   Price: $23,000
+```
   
-# Dictionary - Unordered
-# List - Ordered
+Dictionary - Unordered, List - Ordered.
 
-# два словаря ниже равны, хоть и значения в разном порядке
+Два словаря ниже равны, хоть и значения в разном порядке:
+
+```yaml
 Banana:
   Calories: 105
   Fat: 0.4 g
@@ -103,8 +109,11 @@ Banana:
   Calories: 105
   Carbs: 27 g
   Fat: 0.4 g
+```
 
-# два списка ниже НЕ равны, т.к. значения в разном порядке
+Два списка ниже НЕ равны, т.к. значения в разном порядке:
+
+```yaml
 Fruits:
 - Orange
 - Apple
@@ -114,3 +123,4 @@ Fruits:
 - Orange
 - Banana
 - Apple
+```
