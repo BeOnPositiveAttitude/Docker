@@ -1,5 +1,6 @@
-# Array/List example:
+Array/List example:
 
+```yaml
 Fruits:
 - Orange
 - Apple
@@ -9,9 +10,11 @@ Vegetables:
 - Carrot
 - Cauliflower
 - Tomato
+```
 
-# Dictionary/Map example:
+Dictionary/Map example:
 
+```yaml
 Banana:
   Calories: 105
   Fat: 0.4 g
@@ -21,9 +24,11 @@ Grapes:
   Calories: 62
   Fat: 0.3 g
   Carbs: 16 g
+```
   
-# Key-Value/Dictionary/List exmaple:
+Key-Value/Dictionary/List exmaple:
 
+```yaml
 Fruits:
   - Banana:
       Calories: 105
@@ -34,17 +39,20 @@ Fruits:
       Calories: 62
       Fat: 0.3 g
       Carbs: 16 g
+```
       
-# когда использовать массив, а когда словарь?
-# для хранения свойств одного объекта нужно использовать словарь
-# Dictionary in Dictionary example:
+Когда использовать массив, а когда словарь? Для хранения свойств одного объекта нужно использовать словарь.
 
+Dictionary in Dictionary example:
+
+```yaml
 Color: Blue
 Model: 
   Name: Corvette
   Year: 1995
 Transmission: Manual
 Price: $20,000
+```
   
 # для хранения списка цветов машин можно использовать массив:
 - Blue Corvette
