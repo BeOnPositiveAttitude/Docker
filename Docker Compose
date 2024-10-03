@@ -20,6 +20,7 @@ services:
  
 docker compose up   #поднять контейнеры из yml-файла, с опцией -d контейнеры поднимутся в background-е 
 docker-compose up   #в более старых версиях
+docker compose up -d --build   #если что-то изменили в yaml-файле и нужно применить изменения
 
 # контейнеры поднимаются на одном docker-хосте
  
