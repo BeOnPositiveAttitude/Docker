@@ -27,3 +27,10 @@ docker network inspect bridge   #смотреть детальную инфор�
 # этот встроенный DNS-сервер запускается с адресом 127.0.0.11
 # Docker использует network namespaces, создается отдельный namespace для каждого контейнера и использует virtual ethernet pairs
 # для коннекта между контейнерами
+
+### DNS
+Containers use the same DNS servers as the host by default, but you can override this with --dns.
+By default, containers inherit the DNS settings as defined in the /etc/resolv.conf configuration file.
+Containers that attach to the default bridge network receive a copy of this file. 
+Containers that attach to a custom network use Docker's embedded DNS server 127.0.0.11.
+The embedded DNS server forwards external DNS lookups to the DNS servers configured on the host.
