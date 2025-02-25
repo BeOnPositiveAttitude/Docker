@@ -72,3 +72,35 @@ CONTAINER ID   IMAGE     COMMAND              CREATED         STATUS    PORTS   
 $ docker container ls -qa
 2f418ef8d15a
 ```
+
+Запустить созданный ранее контейнер:
+
+```shell
+$ docker container start 2f418ef8d15a
+```
+
+Вместо того, чтобы писать две разные команды - `docker container create httpd` и `docker container start httpd`, можно объединить их в одну - `docker container run httpd`.
+
+Запустить контейнер с ubuntu и подключиться к терминалу:
+
+```shell
+docker container run -it ubuntu
+```
+
+Задать имя контейнера при запуске:
+
+```shell
+docker container run -itd --name=webapp ubuntu
+```
+
+Переименовать контейнер:
+
+```shell
+docker container rename webapp custom-webapp
+```
+
+Подключиться к терминалу уже запущенного контейнера:
+
+```shell
+docker container attach custom-webapp
+```
