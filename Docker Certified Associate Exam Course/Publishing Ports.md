@@ -25,7 +25,7 @@
    $ docker container run -d --rm --name=apache -p 127.0.0.1:8080:80 httpd
    ```
 
-   Если при запуске контейнера мы укажем только порт приложения в контейнере, тогда на Docker-хосте будет выбран рандомный порт из диапазона `32768 - 60999`:
+   Если при запуске контейнера мы укажем только порт приложения в контейнере, тогда на Docker-хосте будет выбран рандомный порт для публикации из диапазона `32768 - 60999`:
 
    ```shell
    $ docker container run -d --rm --name=apache -p 80 httpd
@@ -41,3 +41,49 @@
    $ cat /proc/sys/net/ipv4/ip_local_port_range
    32768   60999
    ```
+
+4. Что если мы хотим опубликовать приложение без явного указания портов? Предположим наше приложение публикуется сразу на нескольких портах и мы не хотим их явно указывать.
+
+   ```shell
+   $ docker container run -d --rm --name=apache -P httpd
+
+   $ docker container ls
+   CONTAINER ID   IMAGE     COMMAND              CREATED         STATUS         PORTS                                       NAMES
+   ee959f31f230   httpd     "httpd-foreground"   5 seconds ago   Up 5 seconds   0.0.0.0:32769->80/tcp, [::]:32769->80/tcp   apache
+   ```
+
+   В этом случае (как и в предыдущем) на Docker-хосте будет выбран рандомный порт из диапазона `32768 - 60999`. А какой порт контейнера нужно опубликовать Docker понимает из инструкции `EXPOSE` в Dockerfile.
+
+   Также можно указать дополнительный порт для публикации, который не указан в инструкции `EXPOSE` в Dockerfile.
+
+   ```shell
+   $ docker container run -d --rm --name=apache -P --expose=8080 httpd
+
+   $ docker container ls
+   CONTAINER ID   IMAGE     COMMAND              CREATED         STATUS         PORTS                                                                                      NAMES
+   5c4f364c44aa   httpd     "httpd-foreground"   6 seconds ago   Up 5 seconds   0.0.0.0:32770->80/tcp, [::]:32770->80/tcp, 0.0.0.0:32771->8080/tcp, [::]:32771->8080/tcp   apache
+   ```
+
+   Чтобы узнать какие порты публикуются контейнером, можно заглянуть в вывод команды:
+
+   ```shell
+   docker container inspect apache
+   ...
+   "ExposedPorts": {
+      "80/tcp": {},
+      "8080/tcp": {}
+   },
+   ```
+
+Под капотом маппинг портов контейнеров с портами на Docker-хосте происходит с помощью правил iptables.
+
+Docker создает свои собственные цепочки правил iptables - `DOCKER` и `DOCKER-USER`.
+
+Посмотрим на созданные правила:
+
+```shell
+$ sudo iptables -t nat -S DOCKER
+-N DOCKER
+-A DOCKER ! -i docker0 -p tcp -m tcp --dport 32770 -j DNAT --to-destination 172.17.0.2:80
+-A DOCKER ! -i docker0 -p tcp -m tcp --dport 32771 -j DNAT --to-destination 172.17.0.2:8080
+```
