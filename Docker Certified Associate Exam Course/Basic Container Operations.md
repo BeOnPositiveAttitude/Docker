@@ -9,7 +9,7 @@ docker   <docker-object>   <sub-command>   [options]   <Arguments/Commands>
 | Новый синтаксис | Старый синтаксис |
 | ----------- | ----------- |
 | `docker container ls` | `docker ps` |
-| `docker images ls` | `docker images` |
+| `docker image ls` | `docker images` |
 | `docker network ls` | Аналогичный |
 | `docker volume ls` | Аналогичный |
 | `docker container run -it ubuntu` | `docker run -it ubuntu` |

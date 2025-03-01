@@ -45,6 +45,6 @@ docker commit ubuntu_latest media:devops   #создать образ с наз�
 
 docker inspect -f '{{.State.Pid}}' container_id   #вывести определенное поле, а именно PID-процесса контейнера
 
-docker buildx build --push --tag $IMAGE_NAME:$IMAGE_TAG .   #build и push одной ккомандой
+docker buildx build --push --tag $IMAGE_NAME:$IMAGE_TAG .   #build и push одной командой
 docker tag $IMAGE_NAME:$IMAGE_TAG $IMAGE_NAME:latest   #alias для docker image tag
 docker push $IMAGE_NAME:latest
