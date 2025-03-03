@@ -21,3 +21,9 @@ $ docker export <container-name> > testcontainer.tar
 ```shell
 $ docker image import testcontainer.tar newimage:latest
 ```
+
+```shell
+$ docker container run -itd --rm --name=testcontainer alpine
+$ docker export testcontainer > aidartest.tar
+$ docker image import aidartest.tar aidaralpine:latest
+```
