@@ -29,3 +29,15 @@ $ docker push frenzy88/my-custom-app
 ```shell
 docker image build -t frenzy88/kodekloudwebimage:v1 .
 ```
+
+Сборка демо-образа с tomcat (репозиторий https://github.com/yogeshraheja/dockertomcat):
+
+```shell
+docker image build -t frenzy88/tomcatone:v1 .
+```
+
+В процессе сборки образа мы можем переопределить переменную с версией tomcat:
+
+```shell
+docker image build -t frenzy88/tomcatone:v2 --build-arg tomcat_version=8.5.8 .
+```
