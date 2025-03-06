@@ -94,3 +94,5 @@ ENTRYPOINT flask run
 ```
 
 В этом случае при изменении содержимого файла `app.py` rebuild коснется всех нижестоящих слоёв (в том числе установки пакетов и зависимостей), что существенно увеличит время сборки и нагрузку на CPU.
+
+Which option can be used to disable the cache while building a docker image? `--no-cache`

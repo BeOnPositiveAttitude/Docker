@@ -29,9 +29,10 @@ $ docker build /opt/my-custom-app   # можно указать абсолютн
 Также при сборке можно указывать url репозитория, в котором находится Dockerfile.
 
 ```
-$ docker build https://github.com/myaccount/myapp            # лучше добавлять .git в конце адреса репозитория
-$ docker build https://github.com/myaccount/myapp#<branch>   # можно указать название ветки
-$ docker build https://github.com/myaccount/myapp:<folder>   # можно указать название директории, в которой лежит Dockerfile
+$ docker build https://github.com/myaccount/myapp.git
+$ docker build https://github.com/myaccount/myapp.git#dev       # можно указать название ветки (dev)
+$ docker build https://github.com/myaccount/myapp.git:testdir   # можно указать название директории, в которой лежит Dockerfile
+$ docker build https://github.com/myaccount/myapp.git#dev:testdir   # можно указать и ветку (dev) и каталог (testdir)
 ```
 
 Если имя Dockerfile отличается от дефолтного, например `Dockerfile_prod`, тогда можно указать его через опцию `-f`:
@@ -42,3 +43,11 @@ $ docker image build -t frenzy88/prodwebapp -f Dockerfile_prod ~/docker_tomcat/
 ```
 
 Самое главное не забывать указывать build context!
+
+What is the command to build an image using a `Dockerfile.dev` file under path `/opt/myapp` with the name `webapp`. The current directory you are in is `/tmp`.
+
+```shell
+$ docker image build -f /opt/myapp/Dockerfile.dev /opt/myapp -t webapp
+```
+
+Т.е. нужно указывать полный путь до `Dockerfile.dev`, т.к. мы находимся в `/tmp`.
