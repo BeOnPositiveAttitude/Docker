@@ -70,3 +70,5 @@ docker image build --target builder -t my-app .
 Преимущества Multi-Stage Builds:
 
 <img src="image-3.png" width="600" height="150"><br>
+
+What instruction is used to copy a file from an external image named `redis` not part of any stage in the multi-stage build process? `--from=redis`

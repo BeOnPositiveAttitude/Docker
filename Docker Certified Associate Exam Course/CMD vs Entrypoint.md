@@ -64,3 +64,5 @@ CMD ["5"]
 ```shell
 docker run --entrypoint sleep2.0 ubuntu-sleeper 10
 ```
+
+If you list more than one `CMD` instruction in the Dockerfile then only the last `CMD` will take effect.
