@@ -1,0 +1,1 @@
+CGroups позволяет распределять ресурсы (CPU, Memory, Network Bandwidth, Block I/O) между процессами на хосте.
