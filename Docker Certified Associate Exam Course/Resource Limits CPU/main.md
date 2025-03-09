@@ -31,6 +31,7 @@ $ docker container run --cpuset-cpus=0-1 webapp1
 $ docker container run --cpuset-cpus=0-1 webapp2
 $ docker container run --cpuset-cpus=2 webapp3
 $ docker container run --cpuset-cpus=2 webapp4
+$ docker container run -itd --rm --name=testcpu --cpuset-cpus="1" ubuntu   # пример из демо
 ```
 
 <img src="image-1.png" width="600" height="200"><br>
