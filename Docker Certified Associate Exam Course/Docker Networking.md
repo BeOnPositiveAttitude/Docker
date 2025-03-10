@@ -69,7 +69,7 @@ $ docker network disconnect custom_net_name container_name
 $ docker network rm custom_net_name
 ```
 
-Удалить неиспользуемые сети:
+Удалить неиспользуемые сети (кроме трех дефолтных):
 
 ```shell
 $ docker network prune
@@ -85,8 +85,72 @@ Containers use the same DNS servers as the host by default, but you can override
 
 By default, containers inherit the DNS settings as defined in the `/etc/resolv.conf` configuration file.
 
-Containers that attach to the default bridge network receive a copy of this file.
+Containers that attach to the default `bridge` network receive a copy of this file.
 
 Containers that attach to a custom network use Docker's embedded DNS server `127.0.0.11`.
 
 The embedded DNS server forwards external DNS lookups to the DNS servers configured on the host.
+
+**Контейнеры, подключенные к дефолтной bridge-сети, не работают со встроенным DNS-сервером Docker, соответственно не видят друг друга по имени.**
+
+### Demo
+
+В дефолтной bridge-сети разрешение имен контейнеров не работает:
+
+```
+$ docker container run -itd --rm --name=first busybox
+$ docker container run -itd --rm --name=second busybox
+
+$ docker container exec -it first /bin/sh
+/ # ping second
+ping: bad address 'second'
+
+$ docker container exec first cat /etc/resolv.conf
+nameserver 192.168.1.1   # используется DNS хоста
+```
+
+Создадим кастомную сеть и два контейнера. В этом случае разрешение имен работает:
+
+```
+$ docker network create --driver=bridge --subnet=192.168.10.0/24 kodekloudnet
+$ docker container run -itd --rm --name=custom-first --net=kodekloudnet busybox
+$ docker container run -itd --rm --name=custom-second --net=kodekloudnet busybox
+
+$ docker container exec -it custom-first /bin/sh
+/ # ping custom-second
+PING custom-second (192.168.10.3): 56 data bytes
+64 bytes from 192.168.10.3: seq=0 ttl=64 time=0.071 ms
+64 bytes from 192.168.10.3: seq=1 ttl=64 time=0.077 ms
+64 bytes from 192.168.10.3: seq=2 ttl=64 time=0.169 ms
+64 bytes from 192.168.10.3: seq=3 ttl=64 time=0.238 ms
+^C
+--- custom-second ping statistics ---
+4 packets transmitted, 4 packets received, 0% packet loss
+round-trip min/avg/max = 0.071/0.138/0.238 ms
+
+$ docker container exec custom-first cat /etc/resolv.conf
+nameserver 127.0.0.11   # используется встроенный DNS Docker
+options ndots:0
+```
+
+Попробуем пингануть из кастомной сети контейнер, находящийся в дефолтной сети:
+
+```
+$ docker exec custom-first ping first
+ping: bad address 'first'
+
+$ docker network connect kodekloudnet first   # подключим контейнер к кастомной сети, теперь у него два интерфейса в разных сетях
+
+$ docker exec custom-first ping first   # проверим пинг снова
+PING first (192.168.10.4): 56 data bytes
+64 bytes from 192.168.10.4: seq=0 ttl=64 time=0.069 ms
+64 bytes from 192.168.10.4: seq=1 ttl=64 time=0.130 ms
+64 bytes from 192.168.10.4: seq=2 ttl=64 time=0.150 ms
+
+$ docker network disconnect kodekloudnet first   # отключим контейнер от кастомной сети
+
+$ docker exec custom-first ping first
+ping: bad address 'first'
+```
+
+Overlay networks connect multiple Docker daemons together and enable swarm services to communicate with each other.
