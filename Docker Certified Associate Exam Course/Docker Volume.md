@@ -209,3 +209,12 @@ tmpfs                       2.0G     0  2.0G   0% /proc/asound
 tmpfs                       2.0G     0  2.0G   0% /proc/acpi
 tmpfs                       2.0G     0  2.0G   0% /sys/firmware
 ```
+
+Which among the below is a correct command to start a `webapp` container with the volume `vol3`, mounted to the destination directory `/opt` in readonly mode? Далее перечислены верные ответы:
+
+```shell
+$ docker run -d --name=webapp -v vol3:/opt:ro httpd
+$ docker run -d --name=webapp --mount source=vol3,target=/opt,readonly httpd
+$ docker run -d --name=webapp --mount source=vol3,target=/opt,ro httpd
+$ docker run -d --name=webapp --volume vol3:/opt:ro httpd
+```
