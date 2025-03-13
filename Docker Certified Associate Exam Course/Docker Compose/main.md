@@ -1,0 +1,196 @@
+Если нам нужно запустить сразу несколько контейнеров, из которых состоит наше приложение, на помощь приходит Docker Compose.
+
+Вместо множества команд:
+
+```shell
+$ docker run frenzy88/simple-webapp
+$ docker run mongodb
+$ docker run redis:alpine
+$ docker run ansible
+```
+
+Мы можем написать `docker-compose.yml`:
+
+```yaml
+services:
+  web:
+    image: "frenzy88/simple-webapp"
+  database:
+    image: "mongodb"
+  messaging:
+    image: "redis:alpine"
+  orchestration:
+    image: "ansible"
+```
+
+А затем поднять все контейнеры одной командой: `docker compose up -d`.
+
+Если что-то изменили в yaml-файле и нужно применить изменения: `docker compose up -d --build`.
+
+Важно понимать, что все контейнеры поднимаются на одном Docker-хосте.
+
+### Архитектура demo-приложения Voting App
+
+<img src="image.png" width="500" height="300"><br>
+
+Опция `--link` командной строки нужна для связи двух контейнеров друг с другом (legacy).
+
+```shell
+$ docker run -d --name=redis redis
+$ docker run -d --name=db postgres
+$ docker run -d --name=vote -p 5000:80 --link redis:redis voting-app   # первый redis - имя контейнера, второй redis - имя хоста redis в коде voting-app, своего рода маппинг имен
+$ docker run -d --name=result -p 5001:80 --link db:db result-app
+$ docker run -d --name=worker --link db:db --link redis:redis worker
+```
+
+При создании линка фактически в файле `/etc/hosts` контейнера `vote` создается запись:
+
+```shell
+172.17.0.2 redis 89cd8eb563da
+```
+
+Если перевести команды выше в Docker Compose:
+
+```yaml
+services:
+  redis:
+    image: redis
+
+  db:
+    image: postgres:9.4
+
+  vote:
+    image: voting-app
+    ports:
+      - 5000:80
+    links:
+      - redis
+
+  result:
+    image: result-app
+    ports:
+      - 5001:80
+    links:
+      - db   #здесь db=db:db
+
+  worker:
+    image: worker
+    links:
+      - redis
+      - db
+```
+
+В случае если нам нужно сначала собрать свои образы мы можем вместо опции `image` указать опцию `build`:
+
+```yaml
+services:
+  redis:
+    image: redis
+
+  db:
+    image: postgres:9.4
+
+  vote:
+    build: ./vote   #каталог с кодом приложения и Dockerfile
+    ports:
+      - 5000:80
+    links:
+      - redis
+
+  result:
+    build: ./result
+    ports:
+      - 5001:80
+    links:
+      - db
+
+  worker:
+    build: ./worker
+    links:
+      - redis
+      - db
+```
+
+Существуют различные версии Docker Compose файлов со своими особенностями и ограничениями.
+
+Так например в `version: 1` нельзя было указать другую сеть для контейнера кроме как дефолтную `bridge` или определить порядок старта контейнеров. Т.е. все контейнеры подключались к дефолтной `bridge`-сети, а для взаимодействия между контейнерами использовались link.
+
+В `version: 2` появилось ключевое слово `services` в начале файла.
+
+При использовании `version: 2` и выше необходимо указывать версию в самом начале файла, перед ключевым словом `services`.
+
+```yaml
+version: 2
+
+services:
+  redis:
+    image: redis
+
+  db:
+    image: postgres:9.4
+
+  vote:
+    image: voting-app
+    ports:
+    - 5000:80
+```
+
+В `version: 2` теперь автоматически создается выделенная `bridge`-сеть и все контейнеры подключаются к ней. Контейнеры взаимодействуют друг с другом на основе имен контейнеров. Таким образом в `version: 2` нет необходимости использовать link-и.
+Также в `version: 2` добавили порядок старта контейнеров:
+
+```yaml
+version: 2
+
+services:
+  redis:
+    image: redis
+
+  db:
+    image: postgres:9.4
+
+  vote:
+    image: voting-app
+    ports:
+      - 5000:80
+    depends_on:
+      - redis   #контейнер vote запустится только после старта redis
+```
+
+В `version: 3` появилась поддержка Docker Swarm.
+
+Предположим, что мы решили разнести компоненты нашего приложения по разным сетям.
+
+Пользовательский трафик - сеть `front-end` (компоненты `vote` и `result`).
+
+Внутренний трафик приложения - сеть `back-end` (компоненты `redis`, `db`, `worker`).
+
+```yaml
+version: 2
+
+services:
+  redis:
+    image: redis
+    networks:
+      - back-end
+
+  db:
+    image: postgres:9.4
+    networks:
+      - back-end
+
+  vote:
+    image: voting-app
+    networks:
+      - front-end
+      - back-end
+
+  result:
+    image: result
+    networks:
+      - front-end
+      - back-end
+
+networks:
+  front-end:
+  back-end:
+```
