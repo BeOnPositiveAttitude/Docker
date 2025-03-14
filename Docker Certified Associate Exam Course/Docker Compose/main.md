@@ -74,7 +74,7 @@ services:
       - db   #здесь db=db:db
 
   worker:
-    image: worker
+    image: worker-app
     links:
       - redis
       - db
@@ -193,4 +193,28 @@ services:
 networks:
   front-end:
   back-end:
+```
+
+Which command can be used to **stop (only and not delete)** the whole stack of containers created by compose file?
+
+```shell
+$ docker compose stop
+```
+
+Which command can be used to **delete** the application stack created using compose file?
+
+```shell
+$ docker compose down
+```
+
+What is the command to list the containers created by compose file?
+
+```shell
+$ docker compose ps
+```
+
+What is the command to check the logs for the whole stack defined inside compose file?
+
+```shell
+$ docker compose logs
 ```
