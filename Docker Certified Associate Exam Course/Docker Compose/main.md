@@ -135,7 +135,7 @@ services:
     - 5000:80
 ```
 
-В `version: 2` теперь автоматически создается выделенная `bridge`-сеть и все контейнеры подключаются к ней. Контейнеры взаимодействуют друг с другом на основе имен контейнеров. Таким образом в `version: 2` нет необходимости использовать link-и.
+В `version: 2` теперь автоматически создается выделенная `bridge`-сеть и все контейнеры подключаются к ней. **При использовании docker compose контейнеры могут разрешать имя друг друга по названию сервиса** (`db`, `redis` и т.д.), а не по имени контейнера. Таким образом в `version: 2` нет необходимости использовать link-и.
 Также в `version: 2` добавили порядок старта контейнеров:
 
 ```yaml
@@ -205,6 +205,7 @@ Which command can be used to **delete** the application stack created using comp
 
 ```shell
 $ docker compose down
+$ docker compose rm   # удалить остановленные контейнеры
 ```
 
 What is the command to list the containers created by compose file?
@@ -217,4 +218,10 @@ What is the command to check the logs for the whole stack defined inside compose
 
 ```shell
 $ docker compose logs
+```
+
+What is the command to see the running process inside of containers created by compose file?
+
+```shell
+$ docker compose top
 ```
