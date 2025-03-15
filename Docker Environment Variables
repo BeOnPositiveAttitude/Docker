@@ -1,3 +1,0 @@
-# чтобы не "хардкодить" некоторые параметры контейнеризованного приложения, их выносят в переменные
-docker run -e APP_COLOR=blue simple-webapp-color   #запуск контейнера с указанием переменной окружения
-# посмотреть Environment Variables в уже запущенном контейнере можно через docker inspect container_id, раздел Config => Env
