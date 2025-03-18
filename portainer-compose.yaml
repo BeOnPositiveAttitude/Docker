@@ -1,0 +1,18 @@
+services:
+  portainer:
+    image: portainer/portainer-ce:lts
+    environment:
+      - VIRTUAL_HOST=${VIRTUAL_HOST_PORTAINER}
+      - LETSENCRYPT_HOST=${LETSENCRYPT_HOST_PORTAINER}
+      - VIRTUAL_PORT=${VIRTUAL_PORT_PORTAINER}
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+    restart: always
+
+volumes:
+  portainer_data:
+
+# VIRTUAL_HOST_PORTAINER=portainer.example.com
+# LETSENCRYPT_HOST_PORTAINER=portainer.example.com
+# VIRTUAL_PORT_PORTAINER=9000
