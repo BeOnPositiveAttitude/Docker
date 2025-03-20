@@ -91,3 +91,5 @@ $ sudo iptables -t nat -S DOCKER
 Важно понимать, что при неявной (динамической) публикации портов, например через опцию `-P`, после рестарта контейнера порт на Docker-хосте может поменяться на другой. Это существенный минус.
 
 При статической публикации портов, например через опцию `-p 8080:80`, такой проблемы нет.
+
+The `EXPOSE` instruction **doesn't actually publish the port**. It functions as a type of documentation between the person who builds the image and the person who runs the container, about which ports are intended to be published. To publish the port when running the container, use the `-p` flag on docker run to publish and map one or more ports, or the `-P` flag to publish all exposed ports and map them to high-order ports.
