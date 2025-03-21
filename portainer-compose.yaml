@@ -10,9 +10,16 @@ services:
       - portainer_data:/data
     restart: always
 
+  postgres-exporter:
+    image: quay.io/prometheuscommunity/postgres-exporter
+    environment:
+      - DATA_SOURCE_URI=${POSTGRES_HOST}:5432/postgres?sslmode=disable
+      - DATA_SOURCE_USER=postgres
+      - DATA_SOURCE_PASS=${POSTGRES_SUPERUSER_PASSWORD}
+    restart: always
+    volumes:
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+
 volumes:
   portainer_data:
-
-# VIRTUAL_HOST_PORTAINER=portainer.example.com
-# LETSENCRYPT_HOST_PORTAINER=portainer.example.com
-# VIRTUAL_PORT_PORTAINER=9000

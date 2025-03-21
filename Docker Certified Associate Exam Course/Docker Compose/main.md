@@ -225,3 +225,27 @@ What is the command to see the running process inside of containers created by c
 ```shell
 $ docker compose top
 ```
+
+Instead of, or as well as, specifying your own networks, you can also change the settings of the app-wide default network by defining an entry under `networks` named `default`:
+
+```yaml
+networks:
+  default:
+    name: geomate-platform
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.18.0.0/26
+          ip_range: 172.18.0.0/26
+```
+
+В данном примере мы определяем настройки для дефолтной сети, создаваемой docker compose. По умолчанию сеть получает название, которое формируется из имени каталога, содержащего `docker-compose.yaml` плюс слово `default`. Например `apps_default`. Здесь же мы явно указываем имя для этой сети - `geomate-platform`. Секция `ipam` (IP Address Management) определяет сетевые настройки, подсеть, диапазон адресов и прочие.
+
+Далее в другом файле `docker-compose.yaml` мы хотим использовать эту сеть, чтобы не создавать новую. If you want your containers to join a pre-existing network, use the `external` option.
+
+```yaml
+networks:
+  default:
+    name: geomate-platform
+    external: true
+```
