@@ -249,3 +249,12 @@ networks:
     name: geomate-platform
     external: true
 ```
+
+Docker Compose uses **project name** to let users deploy multiple isolated environments on a single host. Project name will use the name of the folder containing your `docker-compose.yaml` by default.
+
+You can change the container naming behavior by:
+
+- Using `-p` option such as `docker compose -p project_name up` which will cause containers to be named like `project_name_myappv1_1`
+- Use `container_name` option to specify a custom container name which will remain the same even on different deployments
+
+Docker Compose uses the default naming scheme `<project>_<service>_<index>` to isolate environments, so you can run multiple instances of the same compose-file on one host.
