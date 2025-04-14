@@ -176,3 +176,11 @@ $ setx DOCKER_HOST tcp://127.0.0.1:2375
 ```shell
 $ setx COMPOSE_CONVERT_WINDOWS_PATHS 1
 ```
+
+Чтобы удалить дистрибутив из WSL и удалить все данные, связанные с этим дистрибутивом Linux, выполните команду:
+
+```shell
+$ wsl --unregister <distroName>
+```
+
+Здесь `<distroName>` - имя дистрибутива Linux, которое можно увидеть из списка в команде `wsl -l -v`.
