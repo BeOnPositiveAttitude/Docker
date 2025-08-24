@@ -66,3 +66,7 @@ docker run --entrypoint sleep2.0 ubuntu-sleeper 10
 ```
 
 If you list more than one `CMD` instruction in the Dockerfile then only the last `CMD` will take effect.
+
+```shell
+$ docker container run -d --name=rabbit -v ~/rabbit-data:/var/lib/rabbitmq --entrypoint sleep  docker.io/rabbitmq-313:latest 3600
+```
